@@ -1,3 +1,4 @@
+# Базовый класс отвечающий за открытие инициализацию браузера, открытие ссылки, отбработка ошибки не найденный елемент.
 from selenium.common.exceptions import NoSuchElementException
 
 
@@ -16,3 +17,8 @@ class BasePage():
         except(NoSuchElementException):
             return False
         return True
+
+    def is_url_contains_correct_substring(self, substring_to_search):
+        if substring_to_search in self.browser.current_url:
+            return True
+        return False
