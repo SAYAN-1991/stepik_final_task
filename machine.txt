@@ -1,0 +1,7 @@
+1. python
+2. plugin for chrome
+3. chromedriver
+4. selenium
+5. pytest
+6. firefox
+7. geckodriver

@@ -1,6 +1,5 @@
 # Базовый класс отвечающий за открытие инициализацию браузера, открытие ссылки, отбработка ошибки не найденный елемент.
 import math
-
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 
