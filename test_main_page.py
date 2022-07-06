@@ -23,6 +23,8 @@ def test_guest_should_see_login_link(browser):
     page.open()
     page.should_be_login_link()
 
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    pass
 
 # pytest -v --tb=line --language=ru test_main_page.py
 #pytest -v -s --tb=line --language=en test_main_page.py команда запуска с поддержкой Print
