@@ -8,14 +8,20 @@ from .locators import BasePageLocators
 import math
 import time
 
+
 class BasePage():
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
+        self.language = browser.execute_script("return window.navigator.userLanguage || window.navigator.language")
         self.browser.implicitly_wait(10)
 
     def open(self):
         self.browser.get(self.url)
+
+    def go_to_basket(self):
+        link = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
+        link.click()
 
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
