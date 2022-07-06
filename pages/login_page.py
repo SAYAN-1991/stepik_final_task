@@ -1,6 +1,3 @@
-# Здесь хранятся проверки со страницы авторизации
-import time
-
 from .base_page import BasePage
 from .locators import LoginPageLocators
 

@@ -1,5 +1,3 @@
-# Отсюда запускаются тесты
-# В функциях указываются линки и операции
 import pytest
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
@@ -25,12 +23,10 @@ class TestLoginFromMainPage():
 
 def test_guest_cant_see_product_in_cart_opened_from_main_page(browser):
     page = MainPage(browser, link)
-    page.open()  # Гость открывает главную страницу
-    page.view_basket()  # Переходит в корзину по кнопке в шапке сайта
+    page.open()
+    page.view_basket()
     basket_page = CartPage(browser, browser.current_url)
-    basket_page.should_be_no_goods()  # Ожидаем, что в корзине нет товаров
-    basket_page.should_be_empty_basket_message()  # Ожидаем, что есть текст о том что корзина пуста
+    basket_page.should_be_no_goods()
+    basket_page.should_be_empty_basket_message()
 
-# pytest -v --tb=line --language=ru test_main_page.py
-# pytest -v -s --tb=line --language=en test_main_page.py команда запуска с поддержкой Print
-# pytest -v -m login_guest --tb=line --language=ru test_main_page.py
+

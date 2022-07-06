@@ -1,4 +1,3 @@
-# Базовый класс отвечающий за открытие инициализацию браузера, открытие ссылки, отбработка ошибки не найденный елемент.
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
@@ -8,19 +7,18 @@ from .locators import BasePageLocators
 import math
 
 
-class BasePage():
+class BasePage(object):
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
-        self.language = browser.execute_script("return window.navigator.userLanguage || window.navigator.language")
         self.browser.implicitly_wait(10)
 
     def open(self):
         self.browser.get(self.url)
 
     def view_basket(self):
-        link = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
-        link.click()
+        button = self.browser.find_elements(*BasePageLocators.BASKET_BUTTON)[0]
+        button.click()
 
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
@@ -29,11 +27,10 @@ class BasePage():
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
-        except(NoSuchElementException):
+        except (NoSuchElementException):
             return False
         return True
 
-    # Упадет, как только увидит искомый элемент. Не появился: успех, тест зеленый.
     def is_not_element_present(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
@@ -41,7 +38,6 @@ class BasePage():
             return True
         return False
 
-    # Будет ждать до тех пор, пока элемент не исчезнет.
     def is_disappeared(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout, 1, TimeoutException).until_not(
@@ -70,10 +66,7 @@ class BasePage():
         alert.accept()
         try:
             alert = self.browser.switch_to.alert
-            alert_text = alert.text
-            print(f"Your code: {alert_text}")
+            print("Your code: {}".format(alert.text))
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
-
-# pytest -v -s --tb=line --language=en test_product_page.py

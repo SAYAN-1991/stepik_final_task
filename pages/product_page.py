@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class ProductPage(BasePage):
+
     def should_be_add_to_basket_button(self):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET_BUTTON), "Login link is not presented"
 
