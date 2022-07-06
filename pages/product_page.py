@@ -2,7 +2,7 @@ from .base_page import BasePage
 from .locators import ProductPageLocators
 from selenium.webdriver.support import expected_conditions as EC
 
-#Проверка комментария
+
 class ProductPage(BasePage):
     def should_be_add_to_basket_button(self):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET_BUTTON), "Login link is not presented"
@@ -18,7 +18,7 @@ class ProductPage(BasePage):
     def get_product_price(self):
         return self.browser.find_element(*ProductPageLocators.PRICE).text
 
-    def product_added_message(self, name, price):
+    def check_product_added_message(self, name, price):
         elements = self.browser.find_elements(*ProductPageLocators.ALERT_ADDED)
         name_added = elements[0].text
         price_added = elements[2].text
