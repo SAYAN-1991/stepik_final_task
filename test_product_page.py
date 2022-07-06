@@ -1,4 +1,5 @@
 from .pages.product_page import ProductPage
+from .pages.login_page import LoginPage
 import pytest
 
 
@@ -12,6 +13,7 @@ import pytest
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
+@pytest.mark.promo
 def test_guest_can_add_product_to_cart(browser, link):
     print(link)
     page = ProductPage(browser, link)
@@ -22,6 +24,33 @@ def test_guest_can_add_product_to_cart(browser, link):
     page.add_to_basket()
     page.solve_quiz_and_get_code()
     page.product_added_message(name, price)
+
+@pytest.mark.promo
+def test_guest_should_see_login_link_on_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_be_login_link()
+
+@pytest.mark.promo
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_login_page()
+    login_page = LoginPage(browser, browser.current_url)
+    login_page.should_be_login_page()
+
+
+# pytest -v -s -m message --tb=line --language=en test_product_page.py
+@pytest.mark.message
+def test_guest_cant_see_success_message(browser):
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+    page.open()  # Открываем страницу товара
+    page.should_not_be_success_message()  # Проверяем, что нет сообщения об успехе с помощью is_not_element_present
+
+
 
 
 # Функция использовалась для проверки содержимого корзины
@@ -35,3 +64,6 @@ def test_guest_can_add_product_to_cart(browser, link):
     page.add_to_basket()
     page.solve_quiz_and_get_code()
     page.product_added_message(name, price)'''
+
+# pytest -v -s --tb=line --language=en test_product_page.py
+# pytest -v -s -m promo --tb=line --language=en test_product_page.py
