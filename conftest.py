@@ -15,6 +15,9 @@ def browser(request):
     options = Options()
     options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
     browser = webdriver.Chrome(options=options)
+    #chrome_options = Options()
+    #chrome_options.add_argument("--headless")
+    #chrome_options.add_argument("--window-size=1920x1080")
     yield browser
     print("\nquit browser..")
     browser.quit()
