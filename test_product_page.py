@@ -1,6 +1,6 @@
-from .pages.product_page import ProductPage
-from .pages.login_page import LoginPage
-from .pages.cart_page import CartPage
+from pages.product_page import ProductPage
+from pages.login_page import LoginPage
+from pages.cart_page import CartPage
 import pytest
 import faker  # should be installed (see requirements.txt)
 
